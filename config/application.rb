@@ -10,7 +10,7 @@ module Shoplify
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-    config.hosts << 'shoplify-jq5b.onrender.com'
+    # config.hosts << 'shoplify-jq5b.onrender.com'
 
     # Configuration for the application, engines, and railties goes here.
     #
