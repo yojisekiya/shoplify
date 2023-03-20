@@ -1,0 +1,28 @@
+class WebhooksController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
+  def create
+    payload = request.body.read
+    sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
+    event = nil
+
+    begin
+      event = Stripe::Webhook.construct_evernt(
+        payload, sig_header, Rails.application.credentials[Rails.env.to_sym][:stripe][:webhook]
+      )
+    rescue JSON::SignatureVerificationError => e
+      puts "Signature error"
+      p e
+      return
+    end
+
+    case event.type
+    when "checkout.session.completed"
+      session = event.data.object
+      @product = Product.find_by(price: session.amount_total)
+      @product.increment!(:sales_count)
+    end
+
+    render json: { message: 'success' }
+  end
+enD
