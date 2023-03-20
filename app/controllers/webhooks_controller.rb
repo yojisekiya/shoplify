@@ -10,6 +10,9 @@ class WebhooksController < ApplicationController
       event = Stripe::Webhook.construct_evernt(
         payload, sig_header, Rails.application.credentials[:stripe][:webhook]
       )
+    rescue JSON::ParserError => e
+      status 400
+      return
     rescue JSON::SignatureVerificationError => e
       puts "Signature error"
       p e
