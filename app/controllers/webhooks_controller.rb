@@ -13,7 +13,7 @@ class WebhooksController < ApplicationController
     rescue JSON::ParserError => e
       status 400
       return
-    rescue JSON::SignatureVerificationError => e
+    rescue Stripe::SignatureVerificationError => e
       puts "Signature error"
       p e
       return
