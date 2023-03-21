@@ -11,7 +11,7 @@ class CheckoutController < ApplicationController
           }
         ],
         mode: 'payment',
-        success_url: root_url,
+        success_url: root_url + "?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: root_url
       }
     )
