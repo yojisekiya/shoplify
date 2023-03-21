@@ -6,13 +6,7 @@ class CheckoutController < ApplicationController
         customer: current_user.stripe_customer_id,
         line_items: [
           {
-            price_data: {
-              currency: 'usd',
-              unit_amount: product.price,
-              product_data: {
-                name: product.name
-              }
-            },
+            price: product.stripe_price_id,
             quantity: 1
           }
         ],
