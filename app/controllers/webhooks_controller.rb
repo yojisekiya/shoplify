@@ -28,8 +28,6 @@ class WebhooksController < ApplicationController
         product = Product.find_by(stripe_product_id: line_item.price.product)
         product.increment!(:sales_count)
       end
-      @product = Product.find_by(price: session.amount_total)
-      @product.increment!(:sales_count)
     end
 
     render json: { message: 'success' }
