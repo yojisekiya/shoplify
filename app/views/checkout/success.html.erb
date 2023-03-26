@@ -4,4 +4,7 @@ Checkout status: <%= @session_with_expand.payment_status %>
 <br>
 Amount paid: <%= number_to_currency(@session_with_expand.amount_total/100) %> <%= @session_with_expand.currency %>
 <br>
-<%= @session_with_expand %>
+<% @session_with_expand.line_items.data.each do |line_item| %>
+  <% product = Product.find_by(stripe_product_id: line_item.price.product) %>
+  <%= product.name %>: <%= number_to_currency(line_item.price.unit_amount/100) %> <%= line_item.price.currency %><br>
+<% end %>
