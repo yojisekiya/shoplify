@@ -4,6 +4,7 @@ class CheckoutController < ApplicationController
       {
         customer: current_user.stripe_customer_id,
         line_items: @cart.collect {|item| item.to_builder.attributes!},
+        allow_promotion_codes: true,
         mode: 'payment',
         success_url: success_url + "?session_id={CHECKOUT_SESSION_ID}",
         cancel_url: cancel_url
