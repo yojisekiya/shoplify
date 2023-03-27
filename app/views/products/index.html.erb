@@ -19,7 +19,7 @@
         <tr>
           <td><%= product.name %></td>
           <td><%= product.currency %></td>
-          <td><%= product.price.to_f/100 %></td>
+          <td><%= number_to_currency(product.price.to_f/100) %></td>
           <td><%= product.stripe_product_id %></td>
           <td><%= product.stripe_price_id %></td>
           <td>
